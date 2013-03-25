@@ -1,0 +1,9 @@
+{
+  "name": "eastereggjs",
+  "version": "1.0.0",
+  "main": "easteregg.js",
+  "dependencies": {
+  },
+  "devDependencies": {
+  }
+}
