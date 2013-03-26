@@ -1,51 +1,35 @@
-describe("Underscore partials", function() {
-    it("can declare a new partial", function() {
-        var partial = "hello";
-        _.partial.declare("hello", partial);
-        expect(_.partial("hello")).toBe("hello");
+describe("EasterEgg", function() {
+    beforeEach(function(){
+        $('html').removeClass('easteregged');
+        new EasterEgg('hello', function(){
+            $('html').addClass('easteregged');
+        });
     });
 
-    it("can overwrite an existing partial", function() {
-        var partial = "hello";
-        var new_partial = "hello mom!";
-        _.partial.declare("hello", partial);
-        _.partial.declare("hello", new_partial);
-        expect(_.partial("hello")).toBe("hello mom!");
+    it("triggers a callback when the right chars are typed", function() {
+        var e = jQuery.Event("keypress");
+
+        var trigger = 'hello';
+        for (var i = 0; i < trigger.length; i++) {
+            e.charCode = trigger.charCodeAt(i);
+            $("html").trigger(e);
+        }
+
+        expect($('html').hasClass('easteregged')).toBe(true);
     });
 
-    it("can tell you if a partial exists", function(){
-        var partial = "hello";
-        _.partial.declare("hello", partial);
-        expect(_.partial.exists("hello")).toBe(true);
+    it('triggers nothing if the characters are not typed correctly', function(){
+        var e = jQuery.Event("keypress");
+
+        var trigger = 'helilo';
+        for (var i = 0; i < trigger.length; i++) {
+            e.charCode = trigger.charCodeAt(i);
+            $("html").trigger(e);
+        }
+
+        expect($('html').hasClass('easteregged')).toBe(false);
     });
 
-    it("can tell you if a partial does not exist", function(){
-        expect(_.partial.exists("this_partial_does_not_exist")).toBe(false);
-    });
-
-    it("can remove a partial", function(){
-        var partial = "hello";
-        _.partial.declare("hello", partial);
-        expect(_.partial.exists("hello")).toBe(true);
-
-        _.partial.remove("hello");
-        expect(_.partial.exists("hello")).toBe(false);
-    });
-
-    it("gives you the full power of Underscore templates in a partial", function(){
-        var partial = "Hello <%= name %>";
-        _.partial.declare("hello", partial);
-        expect(_.partial("hello", {name: "bob"})).toBe("Hello bob");
-    });
-
-    it("let's you use a partial inside of a template", function(){
-        var template = "User rating: <%= _.partial('star_rating', {rating: 4}) %>";
-        var partial = "<%= rating %> stars (<% for(var i = 0; i < rating; i++) { %>*<% } %>)";
-        _.partial.declare('star_rating', partial);
-        template = _.template(template);
-
-        expect(template()).toBe("User rating: 4 stars (****)");
-    });
 });
 
 (function() {

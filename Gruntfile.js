@@ -21,7 +21,7 @@ module.exports = function(grunt) {
         src : 'easteregg.js',
         options: {
           specs: 'specs/specs.js',
-          vendor: 'components/underscore/underscore.js'
+          vendor: 'components/jquery/jquery.js'
         }
       }
     }

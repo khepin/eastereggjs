@@ -11,6 +11,8 @@ EasterEgg.prototype.start = function() {
 
     $('html').keypress(function(event) {
         var letter = String.fromCharCode(event.charCode).toLowerCase();
+        console.log(letter);
+        console.log(buffer);
         if (letter !== ' ') {
             buffer.push(letter);
         }
