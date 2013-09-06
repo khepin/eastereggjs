@@ -40,7 +40,7 @@ EasterEgg.prototype.addEvents = function(element, events) {
 };
 
 EasterEgg.prototype.trigger = function() {
-    while (this.buffer.length > this.egg.length) {
+    while (this.buffer.join('').length > this.egg.length) {
         this.buffer.shift();
     }
 
