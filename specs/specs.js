@@ -30,6 +30,22 @@ describe("EasterEgg", function() {
         expect($('html').hasClass('easteregged')).toBe(false);
     });
 
+    it('uses custom events', function() {
+        var egg = new EasterEgg('ccccc', function() {
+            $('html').addClass('customevent');
+        });
+
+        egg.addEvent('html', {name: 'click', value: 'c'});
+        var e = jQuery.Event('click');
+        $("html").trigger('click');
+        $("html").trigger('click');
+        $("html").trigger('click');
+        $("html").trigger('click');
+        $("html").trigger('click');
+
+        expect($('html').hasClass('customevent')).toBe(true);
+    });
+
 });
 
 (function() {
